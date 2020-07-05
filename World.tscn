@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Wave.shader" type="Shader" id=1]
+[ext_resource path="res://Floor.shader" type="Shader" id=2]
+
+[sub_resource type="PlaneMesh" id=1]
+size = Vector2( 30, 30 )
+subdivide_width = 600
+subdivide_depth = 600
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 1 )
+shader_param/pi = 3.14159
+shader_param/wave1 = Plane( 1, 2, 0.05, 0 )
+shader_param/wave2 = Plane( 2, 1.5, 0.1, 0.1 )
+shader_param/wave3 = Plane( 0.2, 0, 0, 0 )
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 2 )
+
+[sub_resource type="PlaneMesh" id=4]
+material = SubResource( 3 )
+size = Vector2( 30, 30 )
+subdivide_width = 200
+subdivide_depth = 200
+
+[node name="World" type="Spatial"]
+
+[node name="Water" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 10 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.854695, -0.519131, 0, 0.519131, 0.854695, 0, 3.64684, 0 )
+
+[node name="Seafloor" type="MeshInstance" parent="."]
+mesh = SubResource( 4 )
+material/0 = null
